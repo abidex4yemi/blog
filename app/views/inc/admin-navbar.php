@@ -26,10 +26,10 @@
                 </a>
                 <ul class="sidenav-second-level collapse" id="posts">
                     <li>
-                        <a href="navbar.html">Navbar</a>
+                        <a href="<?php echo URL_ROOT; ?>/posts/viewAllPosts">View all posts</a>
                     </li>
                     <li>
-                        <a href="cards.html">Cards</a>
+                        <a href="<?php echo URL_ROOT; ?>/posts/addPost">Add post</a>
                     </li>
                 </ul>
             </li><!-- nav-item -->
