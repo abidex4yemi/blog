@@ -18,7 +18,7 @@
         public function register($data)
         {   //Sql query
             $sql = "INSERT INTO  ";
-            $sql .= "users (first_name, last_name, email, hashed_password, role, image)";
+            $sql .= "users (first_name, last_name, email, password, role, image)";
             $sql .= "VALUES(:firstName, :lastName, :email, :hashedPassword, :role, :image)";
 
             //prepared statement

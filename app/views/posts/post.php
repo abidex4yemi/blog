@@ -56,34 +56,34 @@
                                     <?php foreach($data['posts'] as $post): ?>
                                     <tr>
                                         <td>
-                                            <?php echo $post->id; ?>
+                                            <?php echo $post->post_id; ?>
                                         </td>
                                         <td>
-                                            <?php echo $post->$user_id; ?>
+                                            <?php echo $post->user_name; ?>
                                         </td>
                                         <td>
-                                            <?php echo $post->$post_title; ?>
+                                            <?php echo $post->post_title; ?>
                                         </td>
                                         <td>
-                                            <?php echo $post->$post_content; ?>
+                                            <?php echo $post->post_content; ?>
                                         </td>
                                         <td>
-                                            <?php echo $post->$cat_id; ?>
+                                            <?php echo $post->category_name; ?>
                                         </td>
                                         <td>
-                                            <?php echo $post->$post_image; ?>
+                                            <?php echo $post->post_image; ?>
                                         </td>
                                         <td>
-                                            <?php echo $post->$post_tags; ?>
+                                            <?php echo $post->post_tags; ?>
                                         </td>
                                         <td>
-                                            <?php echo $post->$post_comment_count; ?>
+                                            <?php echo $post->post_comment_count; ?>
                                         </td>
                                         <td>
-                                            <?php echo $post->$post_status; ?>
+                                            <?php echo $post->post_status; ?>
                                         </td>
                                         <td>
-                                            <?php echo $post->$created_at; ?>
+                                            <?php echo $post->postCreatedAt; ?>
                                         </td>
                                     </tr>
                                     <?php endforeach; ?>
