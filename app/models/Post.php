@@ -36,4 +36,39 @@ class Post {
 
         return $results;
     }
+
+    
+    /**
+     * addPost
+     *
+     * @param  mixed $data
+     *
+     * @return void
+     */
+    public function addPost($data){
+        //sql query
+        $sql  = "INSERT INTO posts";
+        $sql .= "(cat_id, post_title, user_id, post_image, post_content, post_tags)";
+        $sql .= "VALUES(:cat_id, :post_title, :user_id, :post_image, :post_content, :post_tags)";
+
+        //prepare statement
+        $this->db->prepareStmt($sql);
+
+        //bind parameters with value
+        $this->db->bind(':cat_id', $data['category']);
+        $this->db->bind(':post_title', $data['title']);
+        $this->db->bind(':user_id', $data['user_id']);
+        $this->db->bind(':post_image', $data['image']);
+        $this->db->bind(':post_content', $data['content']);
+        $this->db->bind(':post_tags', $data['tags']);
+
+
+
+        //execute prepared statement
+        if($this->db->executePrep()){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

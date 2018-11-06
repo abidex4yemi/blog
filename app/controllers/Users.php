@@ -146,9 +146,7 @@
                     $value = isset($value) ? trim($value) : '';
 
                     if(empty($value)){
-                        if($key == 'csrf_token'){
-                            continue;
-                        }
+                        
                         $data[$key . '_err'] = ucwords(str_replace('_', ' ', $key)) . " is required.";
                     }else{
                         $data[$key . '_err'] = '';
@@ -192,7 +190,7 @@
                         after_successful_login();
                         $this->createUserSession($loggedInUser);
                         if($_SESSION['user_role'] === 'admin'){
-                            redirect('pages/admin');
+                            redirect('Pages/admin');
                         }else{
                             redirect('Pages/post');
                         }
