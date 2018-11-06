@@ -208,8 +208,8 @@ class Categories extends Controller {
             'update' => true,
             'categories' => $category,
             'title-bar' => ' category',
-            'category_name' => htmlspecialchars($row->cat_title),
-            'cat_id' => urlencode($row->cat_id),
+            'category_name' => htmlentities($row->cat_title),
+            'cat_id' => intval($row->cat_id),
             'category_name_err' => ''
         ];
 

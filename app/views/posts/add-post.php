@@ -14,7 +14,7 @@
             </li>
             <li class="breadcrumb-item active">My Dashboard</li>
         </ol>
-        
+
         <?php if(isset($_SESSION['post_failed'])): ?>
         <?php flash('post_failed'); ?>
         <?php endif; ?>
@@ -42,12 +42,13 @@
                             <label for="category">Post Category: <sup class="required">*</sup></label>
                             <select class="custom-select <?php echo (!empty($data['category_err'])) ? 'is-invalid' : ''; ?>"
                                 name="category" id="category">
-                                <option value="" selected>Choose category</option>
+                                <option value="">Choose category</option>
                                 <?php foreach($data['categories'] as $category): ?>
-                                <option value="<?php echo $category->cat_id; ?>">
-                                    <?php echo htmlspecialchars($category->cat_title); ?>
+                                <option value="<?php echo $category->cat_id; ?>" <?php if(isset($_POST['category']) && $_POST['category'] == $category->cat_id){ echo "selected";} ?>>
+                                    <?php echo $category->cat_title; ?>
                                 </option>
                                 <?php endforeach; ?>
+
                             </select>
                             <span class="invalid-feedback">
                                 <?php echo $data['category_err']; ?></span>
@@ -68,7 +69,7 @@
                         <div class="form-group">
                             <label for="tags">Post Tags: <sup class="required">*</sup></label>
                             <input type="text" name="tags" class="form-control <?php echo (!empty($data['tags_err'])) ? 'is-invalid' : ''; ?>"
-                                value="<?php echo $data['tags']; ?>">
+                                value="<?php echo htmlspecialchars($data['tags']); ?>">
                             <span class="invalid-feedback">
                                 <?php echo $data['tags_err']; ?></span>
                         </div>
@@ -78,8 +79,8 @@
                         <div class="form-group">
                             <label for="content">Post Body: <sup class="required">*</sup></label>
                             <textarea class="form-control <?php echo (!empty($data['content_err'])) ? 'is-invalid' : ''; ?>"
-                                name="content" id="content" rows="5"><?php echo $data['content']; ?></textarea>
-                                <span class="invalid-feedback">
+                                name="content" id="content" rows="5"><?php echo htmlspecialchars($data['content']); ?></textarea>
+                            <span class="invalid-feedback">
                                 <?php echo $data['content_err']; ?></span>
                         </div>
 
