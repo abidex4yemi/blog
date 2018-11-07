@@ -116,14 +116,13 @@
                     $hash_tag = '';
                     foreach($tags as $tag){
                         
-                        $hash_tag .= "<a href='#'>#" . trim($tag) . "</a>";
+                        $hash_tag .= "<a href='#'>#" . trim($tag) . "</a>  ";
                     }
                     
 
 
                     $html .= <<<EOT
 <div class="blog-post mb-3">
-<div class="">
 <div class="card mb-3">
 <a href="#">
 <img class="card-img-top img-fluid w-100" src="$url_root/img/post_images/$post_image"
@@ -145,16 +144,10 @@ alt="">
 <a class="d-inline-block" href="#">
 <i class="fa fa-fw fa-share"></i>Share</a>
 </div>
-<hr class="my-0">
-
-</div>
-</div>
-</div>
 <div class="card-footer small text-muted">$created_at</div>
 </div>
 </div>
-<!-- /Card Columns-->
-</div><!-- /.blog-post -->
+<!-- /.blog-post -->
 EOT;
                 }
                 echo json_encode(['total_pages' => $total_pages, 'html' => $html]);
