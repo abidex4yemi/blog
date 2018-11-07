@@ -40,11 +40,17 @@
   //because ajax is asynchronous so we have to make sure previous request is being loade
   var request_in_progress = false;
 
+  /**
+   * show spinner if request is in progress
+   */
   function showSpinner() {
     var spinner = document.getElementById('spinner');
     spinner.style.display = "block";
   }
 
+  /**
+   * hide spinner after request successful
+   */
   function hideSpinner() {
     var spinner = document.getElementById('spinner');
     spinner.style.display = "none";
@@ -68,9 +74,15 @@
     //which allow us to traverse the dom
     temp.innerHTML = new_html;
 
+    if(temp.innerHTML === ""){
+      load_more_btn.innerText =  "End of posts";
+      return;
+  }
+
     //get the class name of the first child element
     //Note: use firstElementChild because of how javascript treat white space
     var class_name = temp.firstElementChild.className;
+    
     //get class .blog-post inside #blog-post
     var items = temp.getElementsByClassName(class_name);
     //Note: the length property of items change every time the loop runs
@@ -83,12 +95,17 @@
 
   }
 
+  function setTotalPages(total_pages){
+    //set data-total attribute
+    load_more_btn.setAttribute('data-total', total_pages);
+  }
 
   function setCurrentPage(page) {
     // console.log("IncrementPage", page);
     //set data-page attribute
     load_more_btn.setAttribute('data-page', page);
   }
+
 
 
   function loadMore() {
@@ -104,23 +121,36 @@
 
     //set initial page
     var page = parseInt(load_more_btn.getAttribute('data-page'));
+    var total_pages = parseInt(load_more_btn.getAttribute('data-total'));
+
+    if(page > total_pages || total_pages == 0){
+      hideSpinner();
+      return;
+    }
+    
     var next_page = page + 1;
 
+
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', '/blog_posts.php?page=' + next_page, true);
+    xhr.open('GET', 'http://blog.app.com/pages/blog_posts/' + next_page, true);
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     xhr.onreadystatechange = function () {
       if (xhr.readyState == 4 && xhr.status == 200) {
         var result = xhr.responseText;
-        //console.log("Results: " + result);
+        
+        var json = JSON.parse(result);
+
         //hide spinner
         hideSpinner();
 
         //set current page
         setCurrentPage(next_page);
-
+        //set total pages
+        setTotalPages(json.total_pages);
+        
         //Append result to the end of blog-post container
-        appendToDiv(container, result);
+        appendToDiv(container, json.html);
+        
         //show load more button
         showLoadMOre();
         //reset request in progress to false after succesful response

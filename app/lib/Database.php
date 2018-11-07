@@ -107,6 +107,20 @@
             return $this->stmt->fetchAll(PDO::FETCH_OBJ);
         }
 
+
+        /**
+         * fetch single column
+         *
+         * @return void
+         */
+        public function colFetch()
+        {
+            $this->executePrep();
+            return $this->stmt->fetchColumn(0);
+        }
+
+        
+
         /**
          * fetch single result from database
          *

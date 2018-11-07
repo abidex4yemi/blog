@@ -37,6 +37,59 @@ class Post {
         return $results;
     }
 
+
+    /**
+     * count_posts
+     *
+     * @return void
+     */
+    public function count_posts()
+    {
+        $sql = "SELECT COUNT(id) FROM posts";
+
+        //query database
+        $this->db->prepareStmt($sql);
+
+        //store resultset
+        $results = $this->db->colFetch();
+
+        return $results;
+    }
+
+
+
+    public function get_products_subset($positionStart, $positionEnd){
+        //Note: 0 will yield to 1
+        $offset = $positionStart - 1;
+        //get total rows to be displayed
+        $rows = $positionEnd - $positionStart + 1;
+
+        $sql = "SELECT *, ";
+            $sql .= "posts.id AS post_id,";
+            $sql .= "users.first_name AS user_name, ";
+            $sql .= "categories.cat_title AS category_name, ";
+            $sql .= "posts.created_at AS postCreatedAt, ";
+            $sql .= "users.created_at AS userCreatedAt ";
+            $sql .= "FROM posts ";
+            $sql .= "INNER JOIN users ON posts.user_id = users.id ";
+            $sql .= "INNER JOIN categories ON posts.cat_id = categories.cat_id ";
+            $sql .= "ORDER BY posts.created_at DESC ";
+            $sql .= "LIMIT :offset, :rows";
+
+            //prepared statament
+            $this->db->prepareStmt($sql);
+
+            $this->db->bind(":offset", $offset);
+            $this->db->bind(":rows", $rows);
+
+            $this->db->executePrep();
+    
+            $subset = $this->db->resultSet();
+
+            return $subset;
+    }
+
+
     
     /**
      * addPost
