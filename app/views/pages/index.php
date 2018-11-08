@@ -17,7 +17,7 @@
             </section><!-- /.blog-posts-->
 
             <div id="spinner" class="text-center">
-                <img src="/assets/img/spinner.gif" alt="" width="50" height="50">
+                <img src="<?php echo URL_ROOT ?>/img/spinner.gif" alt="" width="50" height="50">
             </div>
 
             <hr>

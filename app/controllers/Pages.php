@@ -68,7 +68,6 @@
         public function blog_posts($id)
         {
             if($this->is_ajax_request()){
-                
                 //get page number
                 $current_page = intval($id);
 
