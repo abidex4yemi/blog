@@ -6,6 +6,8 @@
             $this->postModel = $this->model('Post');
         }
 
+        
+
         /**
          * index
          *
@@ -14,12 +16,16 @@
         public function index()
         {
             $categories = $this->categoryModel->getCategories();
+
             $data = [
                 'categories' => $categories,
                 'title' => 'Welcome to Codemind Blog!',
                 'title-bar' => ' Home',
-                'description' => 'A Blog for the NERD!'
+                'description' => 'A Blog for the NERD!',
+                'search' => '',
+                'search_err' => ''
             ];
+
 
             $this->view('pages/index', $data);
         }
@@ -154,6 +160,50 @@ EOT;
             }else{
                 die();
             }
+        }
+
+
+        /**
+         * search
+         *
+         * @return void
+         */
+        public function search(){
+            $categories = $this->categoryModel->getCategories();
+
+            $data = [
+                'categories' => $categories,
+                'title' => 'Welcome to Codemind Blog!',
+                'title-bar' => ' Home',
+                'description' => 'A Blog for the NERD!',
+                'search' => '',
+                'search_err' => ''
+            ];
+
+           if($this->request_is_get()){
+                if(isset($_GET['search'])){
+
+                    $search = isset($_GET['search']) ? htmlspecialchars(trim($_GET['search'])) : '';
+
+                    
+                    if(empty($search)){
+                        $data['search_err'] = "Please type a serach keyword";
+
+                    }else{
+                        $data['search'] = $search;
+                    }
+        
+                    if(empty($data['search_err'])){
+                        $this->view('pages/index', $data);
+        
+                    }else{
+                        $this->view('pages/index', $data);
+                    }
+        
+                }else{
+                    $this->view('pages/index', $data);
+                }
+           }
         }
 
     }
